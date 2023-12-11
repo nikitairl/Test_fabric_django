@@ -1,14 +1,15 @@
 import logging
-from celery import shared_task
+from datetime import datetime, timezone
 
-from datetime import datetime
+import pytz
 import requests
+from celery import shared_task
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+
 from disptacher.settings import SEND_JWT_TOKEN
 
-from .models import Client, Message, Dispatch
-
+from .models import Client, Dispatch, Message
 
 # @shared_task
 # def send_messages_task(data):
@@ -41,7 +42,9 @@ def schedule_send_message(data):
     clients = Client.objects.filter(
         Q(operator__in=client_filters) | Q(tag__in=client_filters)
     )
+    print(clients.count())
     for client in clients:
+        client_timezone = pytz.timezone(client.timezone)
         message = Message.objects.create(
             client_id=client,
             send_date=dispatch_date,
@@ -55,17 +58,20 @@ def schedule_send_message(data):
         headers = {
             'Authorization': f'Bearer {SEND_JWT_TOKEN}',
         }
-        try:
-            send_message_task.apply_async(
-                args=[message.id, payload, headers, dispatch_date_end],
-                eta=dispatch_date,
-                expires=dispatch_date_end
-            )
-        except Exception as e:
-            print(e)
+        dispatch_date = datetime.fromisoformat(str(dispatch_date))
+        dispatch_date = dispatch_date.astimezone(client_timezone)
+        print(dispatch_date,)
+        end_date = datetime.fromisoformat(str(dispatch_date_end))
+        end_date = end_date.astimezone(client_timezone)
+        print(end_date,)
+        send_message_task.apply_async(
+            args=[message.id, payload, headers, end_date],
+            eta=dispatch_date,
+            expires=end_date
+        )
 
 
-@shared_task(bind=True, max_retries=3, default_retry_delay=30)
+@shared_task(bind=True, max_retries=5, default_retry_delay=30)
 def send_message_task(self, message_id, payload, headers, end_date):
     response = requests.post(
         URL+str(message_id),
@@ -80,7 +86,8 @@ def send_message_task(self, message_id, payload, headers, end_date):
         print(f'Сообщение успешно отправлено для: {payload["phone"]}')
     else:
         logging.error(response.status_code)
-        if datetime.now() < end_date:
+        now = datetime.now(timezone.utc)
+        if now < end_date:
             self.retry()
         else:
             print(f'Сообщение не отправлено для: {payload["phone"]}')
