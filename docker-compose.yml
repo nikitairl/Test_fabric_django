@@ -1,0 +1,62 @@
+version: '3.8'
+
+
+services:
+  web:
+    build: ./disptacher
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./disptacher:/usr/src/app
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+
+  celery:
+    build: ./disptacher
+    command: celery -A disptacher worker -l info
+    volumes:
+      - ./disptacher:/usr/src/app
+    depends_on:
+      - redis
+      - web
+    env_file:
+      - .env
+
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env.db
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+
+  flower:
+    build: ./disptacher
+    command: celery -A disptacher flower --loglevel=info
+    ports:
+      - 5555:5555
+    depends_on:
+      - web
+      - redis
+      - celery
+      - db
+
+
+volumes:
+  postgres_data:
+
+networks:
+  netone:
+    driver: bridge

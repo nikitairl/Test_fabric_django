@@ -1,7 +1,7 @@
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
-from .tasks import schedule_send_messages
+from .tasks import schedule_send_message
 
 from .models import Client, Dispatch, Message
 from .serializers import (ClientSerializer, DispatchSerializer,
@@ -52,7 +52,7 @@ class DispatchViewSet(BaseViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         try:
-            schedule_send_messages(serializer.data)
+            schedule_send_message(serializer.data)
         except Exception as e:
             print(e)
         return Response(

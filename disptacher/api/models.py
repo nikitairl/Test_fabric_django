@@ -1,4 +1,7 @@
 from django.db import models
+import pytz
+
+TIMEZONE_CHOICES = zip(pytz.all_timezones, pytz.all_timezones)
 
 
 class Dispatch(models.Model):
@@ -17,7 +20,11 @@ class Client(models.Model):
     phone = models.CharField(max_length=12)
     operator = models.CharField(max_length=3)
     tag = models.CharField(max_length=30)
-    timezone = models.CharField(max_length=30)
+    timezone = models.CharField(
+        max_length=255,
+        default='UTC',
+        choices=TIMEZONE_CHOICES
+    )
 
     def __str__(self):
         return f'Client id: {self.id}'
