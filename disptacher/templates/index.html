@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>Statistics</h1>
-<p>Total Dispatches: {{ total_dispatches }}</p>
-<p>Total Clients: {{ total_clients }}</p>
-<p>Total Messages: {{ total_messages }}</p>
 
 <div class="card">
     <div class="box" >
         <img  src="{% static 'images/stats.png' %}" alt="stats-enoth"/>
         <div class="text-block">
+            {% if user.is_authenticated %}
             <h3 class="title">Statistics</h3>
             <p class="description">
                 <p>Total Dispatches: {{ total_dispatches }}</p>
-<p>Total Clients: {{ total_clients }}</p>
-<p>Total Messages: {{ total_messages }}</p>
+                <p>Total Clients: {{ total_clients }}</p>
+                <p>Total Messages: {{ total_messages }}</p>
             </p>
+            {% else %}
+            <a href="/login/auth0">Login</a>
+            {% endif %}
         </div>
     </div>
+    {% if user.is_authenticated %}
     <div class="buttons">
-        <a href="#"><i class="fa fa-heart"></i></a>
-        <a href="#"><i class="fa fa-shopping-cart"></i></a>
+        <a href="{% url 'schema-swagger-ui' %}"><i class="fa fa-heart"></i>S</a>
+        <a href="{% url 'profile' %}"><i class="fa fa-shopping-cart"></i>P</a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

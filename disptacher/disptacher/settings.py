@@ -161,6 +161,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 SWAGGER_SETTINGS = {
-    'LOGIN_URL': 'login/auth0',
-    'LOGOUT_URL': 'logout/',
+    LOGOUT_URL: '/logout',
 }

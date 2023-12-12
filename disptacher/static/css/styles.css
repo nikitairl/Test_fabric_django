@@ -1,22 +1,27 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+
 * {
    box-sizing: border-box;
 }
+
 body,
 html {
    height: 100%;
    min-height: 100%;
 }
+
 body {
    background: #f4fefb;
    overflow: hidden;
    font-family: "Lato", sans-serif;
 }
+
 .card {
    color: #222;
    width: 375px;
    height: 290px;
    position: absolute;
+   text-align: center;
    top: 0;
    left: 0;
    right: 0;
@@ -24,22 +29,20 @@ body {
    margin: auto;
    box-shadow: 0px 30px 30px -20px rgba(0, 0, 0, 0.2);
    transition: all 0.2s cubic-bezier(1, 0.4, 0.4, 0.6);
-   background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0) 37%,
-      rgba(255, 255, 255, 1) 100%
-   );
+   background: linear-gradient(to bottom,
+         rgba(255, 255, 255, 0) 0%,
+         rgba(255, 255, 255, 0) 37%,
+         rgba(255, 255, 255, 1) 100%);
 }
+
 .card:hover {
    bottom: -10px;
    box-shadow: 0px 20px 20px -15px rgba(0, 0, 0, 0.2);
 }
 
-.card > .box {
+.card>.box {
    width: 345px;
    height: 250px;
-   display: border-box;
    position: absolute;
    left: 15px;
    bottom: 23px;
@@ -49,7 +52,7 @@ body {
    background: #fff;
 }
 
-.card > .box > img {
+.card>.box>img {
    position: relative;
    display: block;
    margin: auto;
@@ -57,35 +60,41 @@ body {
    left: 0px;
    width: 50%;
    text-align: center;
-
-.card > .box > .text-block {
-   position: absolute;
-   text-align: center;
-   bottom: 0px;
-   left: 20px;
 }
-.card > .box > .text-block > .title {
+
+.card>.box>.text-block {
+   display: block;
+   position: absolute;
+   bottom: 50%;
+   top: 40%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+.card>.box>.text-block>.title {
    margin: 3px 0;
    font-size: 1.4em;
 }
-.card > .box > .text-block > .price {
+
+.card>.box>.text-block>.price {
    margin: 6px 0 0 0;
    color: #d40000;
    font-size: 1.1em;
 }
-.card > .box > .text-block > .price > .old {
+
+.card>.box>.text-block>.price>.old {
    text-decoration: line-through;
    color: #a6a6a6;
    font-size: 0.75em;
    display: inline-block;
    margin-right: 4px;
 }
-.card > .box > .text-block > .description {
+
+.card>.box>.text-block>.description {
    color: #a6a6a6;
    font-size: 0.8em;
 }
 
-.card > .buttons {
+.card>.buttons {
    transition: all 0.2s cubic-bezier(1, 0.4, 0.4, 0.6);
    position: absolute;
    bottom: -10px;
@@ -94,11 +103,13 @@ body {
    text-align: center;
    opacity: 0;
 }
+
 .card:hover .buttons {
    bottom: -18px;
    opacity: 1;
 }
-.card > .buttons > a {
+
+.card>.buttons>a {
    font-size: 0.9em;
    width: 2.5em;
    height: 2.5em;
@@ -111,6 +122,7 @@ body {
    transition: all 0.2s cubic-bezier(1, 0.4, 0.4, 1);
    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.3);
 }
-.card > .buttons > a:hover {
+
+.card>.buttons>a:hover {
    background: #9e0000;
 }
