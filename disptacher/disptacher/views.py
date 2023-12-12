@@ -1,10 +1,9 @@
 import json
 
+from api.models import Client, Dispatch, Message
 from django.contrib.auth import logout as django_logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from api.models import Client, Dispatch, Message
 
 from .settings import SOCIAL_AUTH_AUTH0_DOMAIN, SOCIAL_AUTH_AUTH0_KEY
 
@@ -42,7 +41,7 @@ def logout(request):
     django_logout(request)
     domain = SOCIAL_AUTH_AUTH0_DOMAIN
     client_id = SOCIAL_AUTH_AUTH0_KEY
-    return_to = 'http://127.0.0.1:8000/'
+    return_to = 'http://127.0.0.1/'
 
     return HttpResponseRedirect(
         f'https://{domain}/v2/logout?client_id={client_id}&returnTo={return_to}'

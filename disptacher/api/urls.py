@@ -35,4 +35,5 @@ urlpatterns = [
     path('v1/message/<int:pk>', views.MessageViewSet.as_view(
         {'get': 'retrieve'}),
          name='message_direct'),
+    path('v1/docs/login/auth0', views.login_redirect, name='login'),
 ]

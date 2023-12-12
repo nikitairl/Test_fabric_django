@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
@@ -163,3 +164,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         dispatch = self.get_object()
         serializer = self.get_serializer(dispatch)
         return Response(serializer.data)
+
+
+def login_redirect(request):
+    return HttpResponseRedirect('/login/auth0')
