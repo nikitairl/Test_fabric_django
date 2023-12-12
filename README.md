@@ -12,14 +12,14 @@ This project demonstrates how to send messages to a desired API using Django, Ce
 ## Features
 
 - Dispatch Object Management:
--- Dispatch objects, containing essential dispatch information, can be added via the DRF API.
+> Dispatch objects, containing essential dispatch information, can be added via the DRF API.
 - Message Tracking:
--- Every message, whether sent or not, is recorded along with the correct delivery status.
+> Every message, whether sent or not, is recorded along with the correct delivery status.
 - Client Information Storage:
--- Client information, including phone number, operator, timezone, and tags, is stored.
--- The client's operator is automatically added, even if the operator field is left empty.
+> Client information, including phone number, operator, timezone, and tags, is stored.
+> The client's operator is automatically added, even if the operator field is left empty.
 - Timezone-based Messaging:
--- Messages are sent according to the specified timezone of the client.
+> Messages are sent according to the specified timezone of the client.
 
 
 
