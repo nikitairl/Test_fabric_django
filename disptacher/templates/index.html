@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Statistics</h1>
+<p>Total Dispatches: {{ total_dispatches }}</p>
+<p>Total Clients: {{ total_clients }}</p>
+<p>Total Messages: {{ total_messages }}</p>
+
+<div class="card">
+    <div class="box" >
+        <img  src="{% static 'images/stats.png' %}" alt="stats-enoth"/>
+        <div class="text-block">
+            <h3 class="title">Statistics</h3>
+            <p class="description">
+                <p>Total Dispatches: {{ total_dispatches }}</p>
+<p>Total Clients: {{ total_clients }}</p>
+<p>Total Messages: {{ total_messages }}</p>
+            </p>
+        </div>
+    </div>
+    <div class="buttons">
+        <a href="#"><i class="fa fa-heart"></i></a>
+        <a href="#"><i class="fa fa-shopping-cart"></i></a>
+    </div>
+</div>
+{% endblock %}

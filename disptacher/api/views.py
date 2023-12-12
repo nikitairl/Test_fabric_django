@@ -6,9 +6,12 @@ from .tasks import schedule_send_message
 from .models import Client, Dispatch, Message
 from .serializers import (ClientSerializer, DispatchSerializer,
                           MessageSerializer)
+from .permissions import IsAuthenticatedOrReadOnly
 
 
 class BaseViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def list(self, request, *args, **kwargs) -> Response:
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
