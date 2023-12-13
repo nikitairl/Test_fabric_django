@@ -16,6 +16,15 @@
           <ul>
             {% if user.is_authenticated %}
             <li>
+              <a href="{% url 'client' %}">Clients</a>
+            </li>
+            <li>
+              <a href="{% url 'dispatch' %}">Dispatch</a>
+            </li>
+            <li>
+              <a href="{% url 'message' %}">Messages</a>
+            </li>
+            <li>
               <a href="{% url 'schema-swagger-ui' %}">Swagger</a>
             </li>
             <li>

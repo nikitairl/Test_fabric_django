@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<img src="{{ auth0_user.extra_data.picture }}" alt="image" width="50px">
-{{ user_data }}
+<div class="card">
+    <div class="box" >
+        <img src="{{ auth0_user.extra_data.picture }}" alt="image" width="50px">
+        <div class="text-block">
+            {% if user.is_authenticated %}
+            <h3 class="title">{{ user_data.user_name }}</h3>
+            <p>Any data can be provided, this is a text example</p>
+            {% else %}
+            <a href="/login/auth0">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="buttons">
+        <a href="{% url 'index' %}"><i class="fa fa-heart"></i>I</a>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

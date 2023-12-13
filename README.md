@@ -1,5 +1,6 @@
 # Test Fabric
 ## Test task for the interview
+![alt text](https://github.com/nikitairl/Test_fabric_django/blob/master/disptacher/static/images/stats.png?raw=true)
 stack: Django, Docker, Celery (/Flower), Redis, Postgres
 
 This project demonstrates how to send messages to a desired API using Django, Celery, Redis, and Postgres, all dockerized for easy deployment and scalability.
@@ -8,6 +9,7 @@ This project demonstrates how to send messages to a desired API using Django, Ce
 - ✨Magic happened and added task will be parsed by client's phone operator and tag
 - Message will be sent according to the local time of the client, specified in the client's timezone
 - Can be easily controlled by API
+- auth0 as an authetication service
 
 ## Features
 
@@ -28,18 +30,29 @@ This project demonstrates how to send messages to a desired API using Django, Ce
 Ensure that Docker is installed on your machine. Follow these steps:
 
 Navigate to the root folder of the repository.
-Create .env and .env.db files in the root folder.
+Create .env and .env.db files in the project's root folder.
 ##### .env
 ```sh
-#.env file
+# .env file
+# django settings
 DJANGO_SECRET_KEY="Your django project secret key"
+
+# Dispatch target API
 SEND_JWT_TOKEN="Your JWT token for api authentication"
+
+# db
 SQL_ENGINE=django.db.backends.postgresql
 SQL_DATABASE=dispatcher
 SQL_USER=dispatcher
 SQL_PASSWORD=dispatcher
 SQL_HOST=db
 SQL_PORT=5432
+
+# auth0 credentials
+# configure you'r app in Auth0 and retrieve the corresponding variables
+APP_DOMAIN='Domain'
+APP_CLIENT_ID='Client id'
+APP_CLIENT_SECRET='Secret'
 ```
 ##### .env.db file:
 ```sh
@@ -51,6 +64,7 @@ From a base dir of the repository:
 ```sh
 docker-compose up --build
 ```
+Now the app should be available at http://127.0.0.1/ or http://127.0.0.1:80/.
 
 ## Development
 

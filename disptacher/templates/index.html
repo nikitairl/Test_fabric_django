@@ -9,6 +9,7 @@
             {% if user.is_authenticated %}
             <h3 class="title">Statistics</h3>
             <p class="description">
+            <p>Sample statistics:</p>
                 <p>Total Dispatches: {{ total_dispatches }}</p>
                 <p>Total Clients: {{ total_clients }}</p>
                 <p>Total Messages: {{ total_messages }}</p>
@@ -20,7 +21,6 @@
     </div>
     {% if user.is_authenticated %}
     <div class="buttons">
-        <a href="{% url 'schema-swagger-ui' %}"><i class="fa fa-heart"></i>S</a>
         <a href="{% url 'profile' %}"><i class="fa fa-shopping-cart"></i>P</a>
     </div>
     {% endif %}

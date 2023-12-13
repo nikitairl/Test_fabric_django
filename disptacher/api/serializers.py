@@ -21,7 +21,17 @@ class ClientSerializer(serializers.ModelSerializer):
             )
         ]
     )
-    operator = serializers.CharField(max_length=3, allow_blank=True)
+    operator = serializers.CharField(
+        max_length=3,
+        allow_blank=True,
+        validators=[
+            RegexValidator(
+                regex=r'^\d{3}$',
+                message=('Оператор должен быть в формате: \
+                         123 или пустым полем для автозаполнения'),
+            )
+        ]
+    )
 
     def validate(self, data):
         phone = data.get('phone', None)

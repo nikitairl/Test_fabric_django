@@ -67,6 +67,7 @@ p {
 
 .card>.box>.text-block {
    display: block;
+   font-size: .9rem;
    position: absolute;
    bottom: 50%;
    top: 40%;
@@ -76,20 +77,6 @@ p {
 .card>.box>.text-block>.title {
    margin: 3px 0;
    font-size: 1.4em;
-}
-
-.card>.box>.text-block>.price {
-   margin: 6px 0 0 0;
-   color: #d40000;
-   font-size: 1.1em;
-}
-
-.card>.box>.text-block>.price>.old {
-   text-decoration: line-through;
-   color: #a6a6a6;
-   font-size: 0.75em;
-   display: inline-block;
-   margin-right: 4px;
 }
 
 .card>.box>.text-block>.description {
