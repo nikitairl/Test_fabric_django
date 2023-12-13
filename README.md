@@ -9,7 +9,7 @@ This project demonstrates how to send messages to a desired API using Django, Ce
 - ✨Magic happened and added task will be parsed by client's phone operator and tag
 - Message will be sent according to the local time of the client, specified in the client's timezone
 - Can be easily controlled by API
-- auth0 as an authetication service
+- auth0 as an authentication service
 
 ## Features
 
