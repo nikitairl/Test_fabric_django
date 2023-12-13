@@ -74,7 +74,7 @@ def schedule_send_message(data):
 @shared_task(bind=True, max_retries=5, default_retry_delay=30)
 def send_message_task(self, message_id, payload, headers, end_date):
     response = requests.post(
-        URL+str(message_id),
+        URL + 0,
         json=payload,
         headers=headers
     )

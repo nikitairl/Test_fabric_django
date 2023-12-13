@@ -1,6 +1,0 @@
-Run celery:
-
-celery -A disptacher worker -l info -P eventlet
-
-Run flower:
-celery -A disptacher flower --loglevel=info

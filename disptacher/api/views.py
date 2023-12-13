@@ -113,7 +113,7 @@ class DispatchViewSet(BaseViewSet):
         try:
             schedule_send_message(serializer.data)
         except Exception as e:
-            print(e)
+            raise e
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
