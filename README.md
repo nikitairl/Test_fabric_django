@@ -68,6 +68,7 @@ From a base dir of the repository:
 docker-compose up --build
 ```
 Now the app should be available at http://127.0.0.1/ or http://127.0.0.1:80/.
+Also you can access Flower for Celery tasks webui via http://127.0.0.1:5555/
 
 ## Development
 
