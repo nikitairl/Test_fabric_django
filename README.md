@@ -1,7 +1,7 @@
 # Test Fabric
 ## Test task for the interview
-![alt text](https://github.com/nikitairl/Test_fabric_django/blob/master/disptacher/static/images/stats.png?raw=true)
-stack: Django, Docker, Celery (/Flower), Redis, Postgres
+<img src="https://github.com/nikitairl/Test_fabric_django/blob/master/disptacher/static/images/stats.png?raw=true" alt="alt text" width="200" height="200">
+stack: Django, Docker, Nginx, Celery (/Flower), Redis, Postgres
 
 This project demonstrates how to send messages to a desired API using Django, Celery, Redis, and Postgres, all dockerized for easy deployment and scalability.
 
