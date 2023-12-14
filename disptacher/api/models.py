@@ -1,7 +1,7 @@
 from django.db import models
 import pytz
 
-TIMEZONE_CHOICES = zip(pytz.all_timezones, pytz.all_timezones)
+TIMEZONE_CHOICES = zip(pytz.common_timezones, pytz.common_timezones)
 
 
 class Dispatch(models.Model):
@@ -10,6 +10,7 @@ class Dispatch(models.Model):
     text = models.TextField()
     client_filter = models.TextField()
     dispatch_date_end = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f'Dispatch id: {self.id}'

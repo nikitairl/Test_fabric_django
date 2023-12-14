@@ -24,11 +24,6 @@ class BaseViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, pk=None) -> Response:
         """
         Retrieves an object and returns its serialized data.
-        Args:
-            request: The request object.
-            pk (Optional): The primary key of the object to retrieve.
-        Returns:
-            A Response obj containing the serialized data of the retrieved obj.
         """
         dispatch = self.get_object()
         serializer = self.get_serializer(dispatch)
@@ -37,16 +32,6 @@ class BaseViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs) -> Response:
         """
         Creates a new object using the provided request data.
-        Args:
-            request (Request): The request object containing the data
-            for creating the object.
-            *args: Variable length argument list.
-            **kwargs: Arbitrary keyword arguments.
-        Returns:
-            Response: The response object containing the serialized data of
-            the created object.
-        Raises:
-            ValidationError: If the provided data is invalid.
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -59,11 +44,6 @@ class BaseViewSet(viewsets.ModelViewSet):
     def delete(self, request, pk=None) -> Response:
         """
         Deletes an object using the provided `pk` (primary key).
-        Parameters:
-            request: The HTTP request object.
-            pk (optional): The primary key of the object to be deleted.
-        Returns:
-            A `Response` object with status code `204` (No Content).
         """
         dispatch = self.get_object()
         dispatch.delete()
@@ -72,15 +52,6 @@ class BaseViewSet(viewsets.ModelViewSet):
     def patch(self, request, *args, **kwargs) -> Response:
         """
         PATCH method for updating an object.
-
-        Args:
-            request: The HTTP request object.
-            *args: Additional positional arguments.
-            **kwargs: Additional keyword arguments.
-
-        Returns:
-            A Response object with a status code of 206 indicating
-            that the update was partial.
         """
         instance = self.get_object()
         self.perform_update(instance)
@@ -97,23 +68,12 @@ class DispatchViewSet(BaseViewSet):
     def create(self, request, *args, **kwargs) -> Response:
         """
         Create a new object using the provided request data.
-        Parameters:
-            request (Request): The HTTP request object.
-            *args: Additional positional arguments.
-            **kwargs: Additional keyword arguments.
-        Returns:
-            Response: The HTTP response object containing the serialized data.
-        Raises:
-            serializers.ValidationError: If the request data is invalid.
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        try:
-            schedule_send_message(serializer.data)
-        except Exception as e:
-            raise e
+        schedule_send_message(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
@@ -137,14 +97,6 @@ class MessageViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs) -> Response:
         """
         Returns a Response object containing the serialized data of a queryset.
-        Parameters:
-            request (Request): The request object that initiated
-            the function call.
-            *args: Additional positional arguments.
-            **kwargs: Additional keyword arguments.
-        Returns:
-            Response: A Response object containing the serialized
-            data of the queryset.
         """
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
@@ -153,18 +105,11 @@ class MessageViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, pk=None) -> Response:
         """
         Retrieve a single object.
-        Args:
-            request (Request): The request object.
-            pk (int, optional): The primary key of the object
-            to retrieve. Defaults to None.
-        Returns:
-            Response: The response object containing the serialized
-            data of the retrieved object.
         """
         dispatch = self.get_object()
         serializer = self.get_serializer(dispatch)
         return Response(serializer.data)
 
 
-def login_redirect(request):
+def login_redirect(request) -> HttpResponseRedirect:
     return HttpResponseRedirect('/login/auth0')

@@ -8,6 +8,7 @@ from . import views
 schema_view = get_schema_view(
     openapi.Info(
         title="Fabric Dispatch API",
+        description="API for sending messages to clients.",
         default_version='v1',),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -19,21 +20,21 @@ urlpatterns = [
         'swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('v1/dispatch/', views.DispatchViewSet.as_view(
         {'get': 'list', 'post': 'create'}),
-         name='dispatch'),
+        name='dispatch'),
     path('v1/dispatch/<int:pk>', views.DispatchViewSet.as_view(
         {'delete': 'delete', 'patch': 'patch', 'get': 'retrieve'}),
-         name='dispatch_direct'),
+        name='dispatch_direct'),
     path('v1/client/', views.ClientViewSet.as_view(
         {'get': 'list', 'post': 'create'}),
-         name='client'),
+        name='client'),
     path('v1/client/<int:pk>', views.ClientViewSet.as_view(
         {'delete': 'delete', 'patch': 'patch', 'get': 'retrieve'}),
-         name='client_direct'),
+        name='client_direct'),
     path('v1/message/', views.MessageViewSet.as_view(
         {'get': 'list'}),
-         name='message'),
+        name='message'),
     path('v1/message/<int:pk>', views.MessageViewSet.as_view(
         {'get': 'retrieve'}),
-         name='message_direct'),
+        name='message_direct'),
     path('v1/docs/login/auth0', views.login_redirect, name='login'),
 ]
